@@ -18,6 +18,8 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Tee-Timer");
         primaryStage.getIcons().add(new Image("ProgrammIcon.png"));
+        primaryStage.setMaxHeight(640);
+        primaryStage.setMaxWidth(960);
         Scene scene = new Scene(root, 960, 640);
         primaryStage.setOnCloseRequest(event -> System.exit(0));
         primaryStage.setScene(scene);
