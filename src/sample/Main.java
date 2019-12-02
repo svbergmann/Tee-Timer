@@ -19,6 +19,7 @@ public class Main extends Application {
         primaryStage.setTitle("Tee-Timer");
         primaryStage.getIcons().add(new Image("ProgrammIcon.png"));
         Scene scene = new Scene(root, 960, 640);
+        primaryStage.setOnCloseRequest(event -> System.exit(0));
         primaryStage.setScene(scene);
         primaryStage.show();
     }
