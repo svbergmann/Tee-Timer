@@ -9,7 +9,7 @@
     <children>
         <ImageView fx:id="startBackground" fitHeight="640.0" fitWidth="957.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../../res/teacup.jpg"/>
+                <Image url="@/teacup.jpg"/>
             </image>
         </ImageView>
         <GridPane fx:id="buttons" layoutX="633.0" layoutY="59.0" prefHeight="333.0" prefWidth="325.0">
@@ -83,7 +83,7 @@
         <ImageView fx:id="steamGif" fitHeight="205.0" fitWidth="274.0" layoutX="206.0" layoutY="29.0"
                    pickOnBounds="true" preserveRatio="true" visible="false">
             <image>
-                <Image url="@../../res/watersteam.gif"/>
+                <Image url="@/watersteam.gif"/>
             </image>
         </ImageView>
         <ImageView fx:id="finishedBackground" fitHeight="640.0" fitWidth="761.0" layoutX="262.0" layoutY="131.0"
@@ -91,7 +91,7 @@
                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                    AnchorPane.topAnchor="0.0">
             <image>
-                <Image url="@../../res/AlarmClock.png"/>
+                <Image url="@/AlarmClock.png"/>
             </image>
         </ImageView>
         <Button fx:id="stopBlinking" mnemonicParsing="false" text="Button" visible="false" AnchorPane.bottomAnchor="0.0"
