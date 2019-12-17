@@ -5,10 +5,14 @@ import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
+import java.net.URISyntaxException;
 import java.time.Duration;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Zeiterfassung {
@@ -20,6 +24,7 @@ public class Zeiterfassung {
     private int startMin;
     private int startSec;
     private AnimationTimer animationTimer;
+    private AtomicBoolean beeped = new AtomicBoolean(false);
 
     public Zeiterfassung(Label secondslabel, Label minuteslabel, ProgressBar progressBar, ImageView imageView, ImageView imageViewSteam) {
         startSec = Integer.parseInt(secondslabel.getText().trim());
@@ -52,7 +57,18 @@ public class Zeiterfassung {
             public void handle(long l) {
                 if (l - last > 1000000000) {
                     last = l;
-                    java.awt.Toolkit.getDefaultToolkit().beep();
+                    if (!beeped.get()) {
+                        beeped.set(true);
+                        String file = "";
+                        try {
+                            file = Main.BEEP_PATH.toURI().toString();
+                        } catch (URISyntaxException e) {
+                            e.printStackTrace();
+                        }
+                        Media test = new Media(file);
+                        MediaPlayer x = new MediaPlayer(test);
+                        x.play();
+                    }
                     imageViewSteam.setVisible(false);
                     if (imageView.isVisible()) {
                         imageView.setVisible(false);
@@ -87,6 +103,7 @@ public class Zeiterfassung {
     public void start(long time) {
         duration = Duration.ofSeconds(time);
         isRunning = true;
+        beeped.set(false);
     }
 
     public void stop() {

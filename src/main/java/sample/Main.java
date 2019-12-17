@@ -7,9 +7,13 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.net.URL;
 import java.util.Objects;
 
 public class Main extends Application {
+
+    public static URL BEEP_PATH = Thread.currentThread().getContextClassLoader().getResource("out.wav");
+
 
     public static void main(String[] args) {
         launch(args);
