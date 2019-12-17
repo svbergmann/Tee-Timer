@@ -77,46 +77,46 @@ public class Controller {
         int startseconds = 0;
 
         //Das Label zur Minutenanzeige
-        minutes.setText(startminutes + "");
+        minutes.setText(String.format("%02d", startminutes));
 
         //Das Label zur Sekundenanzeige
-        seconds.setText(startseconds + "");
+        seconds.setText(String.format("%02d", startseconds));
 
         //Deklarieren eines neuen Zeiterfassungsobjektes
         z = new Zeiterfassung(seconds, minutes, progressBar, finishedBackground, steamGif);
 
         //Buttons zum hoch und runterzaehlen
         minutesPlus.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
-            minutes.setText(Integer.parseInt(minutes.getText()) + 1 + "");
+            minutes.setText(String.format("%02d", Integer.parseInt(minutes.getText().trim()) + 1));
             checkButtonsAndUpdateProgressBar();
         });
 
 
         minutesMinus.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
-            minutes.setText(Integer.parseInt(minutes.getText()) - 1 + "");
+            minutes.setText(String.format("%02d", Integer.parseInt(minutes.getText().trim()) - 1));
             checkButtonsAndUpdateProgressBar();
         });
 
         secondsPlus.setOnMouseClicked(mouseEvent -> {
-            int secondsInt = Integer.parseInt(seconds.getText());
-            int minutesInt = Integer.parseInt(minutes.getText());
+            int secondsInt = Integer.parseInt(seconds.getText().trim());
+            int minutesInt = Integer.parseInt(minutes.getText().trim());
             if (secondsInt == 59) {
-                seconds.setText(0 + "");
-                minutes.setText(minutesInt + 1 + "");
+                seconds.setText(String.format("%02d", 0));
+                minutes.setText(String.format("%02d", Integer.parseInt(minutes.getText().trim()) + 1));
             } else {
-                seconds.setText(secondsInt + 1 + "");
+                seconds.setText(String.format("%02d", Integer.parseInt(seconds.getText().trim()) + 1));
             }
             checkButtonsAndUpdateProgressBar();
         });
 
         secondsMinus.setOnMouseClicked(mouseEvent -> {
-            int secondsInt = Integer.parseInt(seconds.getText());
-            int minutesInt = Integer.parseInt(minutes.getText());
+            int secondsInt = Integer.parseInt(seconds.getText().trim());
+            int minutesInt = Integer.parseInt(minutes.getText().trim());
             if (secondsInt == 0) {
-                seconds.setText(59 + "");
-                minutes.setText(minutesInt - 1 + "");
+                seconds.setText(String.format("%02d", 59));
+                minutes.setText(String.format("%02d", Integer.parseInt(minutes.getText().trim()) - 1));
             } else {
-                seconds.setText(secondsInt - 1 + "");
+                seconds.setText(String.format("%02d", Integer.parseInt(seconds.getText().trim()) - 1));
             }
             checkButtonsAndUpdateProgressBar();
         });
@@ -124,8 +124,10 @@ public class Controller {
         //Buttons start und stop
         start.setOnAction(actionEvent ->
         {
+            start.setDisable(true);
+            stop.setDisable(false);
             z = new Zeiterfassung(seconds, minutes, progressBar, finishedBackground, steamGif);
-            z.start(Integer.parseInt(minutes.getText()) * 60 + Integer.parseInt(seconds.getText()));
+            z.start(Integer.parseInt(minutes.getText().trim()) * 60 + Integer.parseInt(seconds.getText().trim()));
             secondsPlus.setDisable(true);
             secondsMinus.setDisable(true);
             minutesPlus.setDisable(true);
@@ -143,6 +145,8 @@ public class Controller {
                 checkButtons();
                 minutesPlus.setDisable(false);
                 secondsPlus.setDisable(false);
+                start.setDisable(false);
+                stop.setDisable(true);
             }
         });
     }
@@ -155,8 +159,8 @@ public class Controller {
     }
 
     public void checkButtons() {
-        int secondsInt = Integer.parseInt(seconds.getText());
-        int minutesInt = Integer.parseInt(minutes.getText());
+        int secondsInt = Integer.parseInt(seconds.getText().trim());
+        int minutesInt = Integer.parseInt(minutes.getText().trim());
         if (minutesInt == 0 && secondsInt == 0) {
             minutesMinus.setDisable(true);
             secondsMinus.setDisable(true);

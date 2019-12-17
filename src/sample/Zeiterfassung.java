@@ -22,8 +22,8 @@ public class Zeiterfassung {
     private AnimationTimer animationTimer;
 
     public Zeiterfassung(Label secondslabel, Label minuteslabel, ProgressBar progressBar, ImageView imageView, ImageView imageViewSteam) {
-        startSec = Integer.parseInt(secondslabel.getText());
-        startMin = Integer.parseInt(minuteslabel.getText());
+        startSec = Integer.parseInt(secondslabel.getText().trim());
+        startMin = Integer.parseInt(minuteslabel.getText().trim());
         setProgressBarMax(progressBar);
         this.start(this.startMin * 60 + this.startSec);
         isRunning = false;
@@ -35,8 +35,8 @@ public class Zeiterfassung {
                     int max = progressBarMax.get();
                     Platform.runLater(() -> {
                         progressBar.setProgress(1. - 1. * duration.getSeconds() / max);
-                        secondslabel.setText(getActualseconds() + "");
-                        minuteslabel.setText(getActualminutes() + "");
+                        secondslabel.setText(String.format("%02d", getActualseconds()));
+                        minuteslabel.setText(String.format("%02d", getActualminutes()));
                     });
                 } else if (duration.isZero()) {
                     animationTimer.start();
@@ -69,11 +69,11 @@ public class Zeiterfassung {
     }
 
     public void setStartMin(Label minutes) {
-        this.startMin = Integer.parseInt(minutes.getText());
+        this.startMin = Integer.parseInt(minutes.getText().trim());
     }
 
     public void setStartSec(Label seconds) {
-        this.startSec = Integer.parseInt(seconds.getText());
+        this.startSec = Integer.parseInt(seconds.getText().trim());
     }
 
     public long getActualminutes() {
