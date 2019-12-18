@@ -25,6 +25,8 @@ public class Zeiterfassung {
     private int startSec;
     private AnimationTimer animationTimer;
     private AtomicBoolean beeped = new AtomicBoolean(false);
+    private Media media;
+    private MediaPlayer mediaPlayer;
 
     public Zeiterfassung(Label secondslabel, Label minuteslabel, ProgressBar progressBar, ImageView imageView, ImageView imageViewSteam) {
         startSec = Integer.parseInt(secondslabel.getText().trim());
@@ -55,19 +57,23 @@ public class Zeiterfassung {
 
             @Override
             public void handle(long l) {
-                if (l - last > 1000000000) {
+                if (l - last > 200_000_000) {
                     last = l;
                     if (!beeped.get()) {
                         beeped.set(true);
                         String file = "";
                         try {
-                            file = Main.BEEP_PATH.toURI().toString();
+                            file = MainApplication.BEEP_PATH.toURI().toString();
                         } catch (URISyntaxException e) {
                             e.printStackTrace();
                         }
-                        Media test = new Media(file);
-                        MediaPlayer x = new MediaPlayer(test);
-                        x.play();
+                        if (media == null) {
+                            media = new Media(file);
+                        }
+                        if (mediaPlayer == null) {
+                            mediaPlayer = new MediaPlayer(media);
+                        }
+                        mediaPlayer.play();
                     }
                     imageViewSteam.setVisible(false);
                     if (imageView.isVisible()) {
@@ -108,6 +114,10 @@ public class Zeiterfassung {
 
     public void stop() {
         isRunning = false;
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+        }
+        beeped.set(false);
     }
 
     public void setProgressBarMax(ProgressBar progressBar) {
