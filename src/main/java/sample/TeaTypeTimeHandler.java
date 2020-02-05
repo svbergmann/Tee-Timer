@@ -1,53 +1,53 @@
 package sample;
 
+import com.google.gson.Gson;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.json.JSONObject;
 
 import java.io.*;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 public class TeaTypeTimeHandler implements Serializable {
 
-    protected static ArrayList<String> teaTypesArrayList = new ArrayList<>();
-    protected static ObservableList<String> teaTypes;
-    protected static HashMap<String, Integer> teaTypeTimeMap = new HashMap<>();
+    private static final Gson gson = new Gson();
+    private ArrayList<String> teaTypesArrayList = new ArrayList<>();
+    private ObservableList<String> teaTypes;
+    private Map<String, Integer> teaTypeTimeMap = new HashMap<>();
+    private File teasAndTimes = new File(System.getProperty("user.home") + "\\TeasAndTimes.txt");
 
-    public static void readAndSave(File file) throws IOException {
-        ArrayList<String> lines = (ArrayList<String>) new BufferedReader(new FileReader(file)).lines().collect(Collectors.toList());
-        for (String string : lines) {
-            String[] teaPlusTime = string.split(" : ");
-            teaTypesArrayList.add(teaPlusTime[0]);
-            teaTypeTimeMap.put(teaPlusTime[0], Integer.parseInt(teaPlusTime[1]));
-        }
-        teaTypes = FXCollections.observableArrayList(teaTypesArrayList);
-        System.out.println(teaTypeTimeMap.entrySet().toString());
-    }
-
-    public static void writeAndSave() throws IOException {
-        File teasAndTimes = new File(System.getProperty("user.home") + "\\TeasAndTimes.txt");
-        if (teasAndTimes.createNewFile()) {
-            try {
-                JSONObject jsonObject = new JSONObject(teaTypeTimeMap);
-                FileWriter fileWriter = new FileWriter(teasAndTimes);
-                fileWriter.write(jsonObject.toString());
-                fileWriter.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    public TeaTypeTimeHandler() throws IOException {
+        if (fileExists()) {
+            teaTypeTimeMap = readFile();
         } else {
-            //TODO: Datei einlesen
+            teaTypeTimeMap.put("Feinster Grüner Tee (Meßmer)", 3);
+            teaTypeTimeMap.put("Ingwer Holunderblüte (Lord Nelson)", 6);
+            teaTypesArrayList.add("Feinster Grüner Tee (Meßmer)");
+            teaTypesArrayList.add("Ingwer Holunderblüte (Lord Nelson)");
+            teaTypes = FXCollections.observableArrayList(teaTypesArrayList);
+            writeFile();
         }
     }
 
+    private boolean fileExists() {
+        return teasAndTimes.exists();
+    }
 
-    public static ObservableList<String> getTeaTypes() {
+    private void writeFile() throws IOException {
+        gson.toJson(teaTypeTimeMap, new FileWriter(teasAndTimes));
+    }
+
+    private HashMap<String, Integer> readFile() throws FileNotFoundException {
+        return gson.fromJson(new FileReader(teasAndTimes), (Type) teaTypeTimeMap);
+    }
+
+    public ObservableList<String> getTeaTypes() {
         return teaTypes;
     }
 
-    public static HashMap<String, Integer> getTeaTypeTimeMap() {
+    public Map<String, Integer> getTeaTypeTimeMap() {
         return teaTypeTimeMap;
     }
 

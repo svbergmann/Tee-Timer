@@ -7,7 +7,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -52,8 +51,8 @@ public class Controller {
     public void initialize() throws IOException {
 
         //Text Datei einlesen und speichern
-        TeaTypeTimeHandler.readAndSave(new File("src/main/resources/TeesortenUndZiehzeit"));
-        teaMap = TeaTypeTimeHandler.getTeaTypeTimeMap();
+        TeaTypeTimeHandler teaTypeTimeHandler = new TeaTypeTimeHandler();
+        teaMap = teaTypeTimeHandler.getTeaTypeTimeMap();
 
         TeaTypeTimeHandler.writeAndSave();
 
