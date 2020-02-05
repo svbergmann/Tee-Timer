@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 
@@ -20,13 +21,13 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("TimerPage.fxml")));
-        primaryStage.setTitle("Tee-Timer");
-        primaryStage.getIcons().add(new Image("ProgrammIcon.png"));
-        Scene scene = new Scene(root, 960, 640);
-        primaryStage.setOnCloseRequest(event -> System.exit(0));
-        primaryStage.setScene(scene);
-        primaryStage.show();
+    public void start(Stage primaryStage) throws IOException {
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("TimerPage.fxml")));
+            primaryStage.setTitle("Tee-Timer");
+            primaryStage.getIcons().add(new Image("ProgrammIcon.png"));
+            Scene scene = new Scene(root, 960, 640);
+            primaryStage.setOnCloseRequest(event -> System.exit(0));
+            primaryStage.setScene(scene);
+            primaryStage.show();
     }
 }

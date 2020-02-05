@@ -2,16 +2,14 @@ package sample;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
-public class TeaTypeTimeHandler {
+public class TeaTypeTimeHandler implements Serializable {
 
     protected static ArrayList<String> teaTypesArrayList = new ArrayList<>();
     protected static ObservableList<String> teaTypes;
@@ -26,6 +24,22 @@ public class TeaTypeTimeHandler {
         }
         teaTypes = FXCollections.observableArrayList(teaTypesArrayList);
         System.out.println(teaTypeTimeMap.entrySet().toString());
+    }
+
+    public static void writeAndSave() throws IOException {
+        File teasAndTimes = new File(System.getProperty("user.home") + "\\TeasAndTimes.txt");
+        if (teasAndTimes.createNewFile()) {
+            try {
+                JSONObject jsonObject = new JSONObject(teaTypeTimeMap);
+                FileWriter fileWriter = new FileWriter(teasAndTimes);
+                fileWriter.write(jsonObject.toString());
+                fileWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            //TODO: Datei einlesen
+        }
     }
 
 

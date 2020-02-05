@@ -4,9 +4,9 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="stage" styleClass="Tee-Timer" xmlns="http://javafx.com/javafx/10.0.2-internal" fx:controller="sample.Controller">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="stage" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="975.0" styleClass="Tee-Timer" xmlns="http://javafx.com/javafx/10.0.2-internal" fx:controller="sample.Controller">
     <children>
-        <ImageView fx:id="startBackground" fitHeight="640.0" fitWidth="957.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="startBackground" fitHeight="650.0" fitWidth="975.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@/teacup.jpg" />
             </image>
@@ -65,7 +65,7 @@
                 </Label>
             </children>
         </GridPane>
-        <ProgressBar id="progressBar" fx:id="progressBar" layoutY="615.0" prefHeight="25.0" prefWidth="957.0" progress="0.0" />
+        <ProgressBar id="progressBar" fx:id="progressBar" layoutY="615.0" prefHeight="30.0" prefWidth="975.0" progress="0.0" />
         <ImageView fx:id="steamGif" fitHeight="205.0" fitWidth="274.0" layoutX="206.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" visible="false">
             <image>
                 <Image url="@/watersteam.gif" />
@@ -77,11 +77,21 @@
             </image>
         </ImageView>
         <Button fx:id="stopBlinking" mnemonicParsing="false" text="Button" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <SplitPane dividerPositions="0.35" layoutX="597.0" layoutY="15.0" prefHeight="27.0" prefWidth="347.0">
-         <items>
-            <Label alignment="CENTER" prefHeight="17.0" prefWidth="91.0" text="Type of Tea:" />
-            <ComboBox fx:id="typeOfTeaComboBox" prefHeight="25.0" prefWidth="249.0" />
-         </items>
-      </SplitPane>
+      <VBox layoutX="597.0" layoutY="15.0" prefHeight="57.0" prefWidth="347.0">
+         <children>
+            <SplitPane dividerPositions="0.35" prefHeight="27.0" prefWidth="347.0">
+               <items>
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="91.0" text="Type of Tea:" />
+                  <ComboBox fx:id="typeOfTeaComboBox" prefHeight="25.0" prefWidth="249.0" />
+               </items>
+            </SplitPane>
+            <SplitPane dividerPositions="0.5">
+               <items>
+                  <Label alignment="CENTER" prefHeight="30.0" prefWidth="92.0" text="Add Tea:" />
+                  <TextField fx:id="addTeaTextField" prefHeight="54.0" prefWidth="247.0" promptText="&lt;Type of Tea&gt;  : &lt;Minutes&gt;" />
+               </items>
+            </SplitPane>
+         </children>
+      </VBox>
     </children>
 </AnchorPane>

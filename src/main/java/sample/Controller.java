@@ -1,10 +1,7 @@
 package sample;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -46,6 +43,8 @@ public class Controller {
     GridPane buttons;
     @FXML
     ComboBox<String> typeOfTeaComboBox;
+    @FXML
+    TextField addTeaTextField;
 
     private Zeiterfassung z;
     private HashMap<String, Integer> teaMap;
@@ -55,6 +54,8 @@ public class Controller {
         //Text Datei einlesen und speichern
         TeaTypeTimeHandler.readAndSave(new File("src/main/resources/TeesortenUndZiehzeit"));
         teaMap = TeaTypeTimeHandler.getTeaTypeTimeMap();
+
+        TeaTypeTimeHandler.writeAndSave();
 
         //GridPane setzen
         GridPane.setFillHeight(minutesPlus, true);
@@ -166,6 +167,10 @@ public class Controller {
         typeOfTeaComboBox.setItems(TeaTypeTimeHandler.getTeaTypes());
         typeOfTeaComboBox.setOnAction(actionEvent -> minutes.setText(String.format("%02d", teaMap.get(typeOfTeaComboBox.getValue()))));
 
+        //Textfield Aktion setzen
+        addTeaTextField.setOnAction(actionEvent -> {
+            //TODO
+        });
     }
 
     public void checkButtonsAndUpdateProgressBar() {
