@@ -21,7 +21,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("sample.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("TimerPage.fxml")));
         primaryStage.setTitle("Tee-Timer");
         primaryStage.getIcons().add(new Image("ProgrammIcon.png"));
         Scene scene = new Scene(root, 960, 640);

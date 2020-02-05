@@ -2,12 +2,17 @@ package sample;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
 
 public class Controller {
 
@@ -39,10 +44,17 @@ public class Controller {
     Button stopBlinking;
     @FXML
     GridPane buttons;
+    @FXML
+    ComboBox<String> typeOfTeaComboBox;
 
     private Zeiterfassung z;
+    private HashMap<String, Integer> teaMap;
 
-    public void initialize() {
+    public void initialize() throws IOException {
+
+        //Text Datei einlesen und speichern
+        TeaTypeTimeHandler.readAndSave(new File("src/main/resources/TeesortenUndZiehzeit"));
+        teaMap = TeaTypeTimeHandler.getTeaTypeTimeMap();
 
         //GridPane setzen
         GridPane.setFillHeight(minutesPlus, true);
@@ -149,6 +161,11 @@ public class Controller {
                 stop.setDisable(true);
             }
         });
+
+        //typeOfTeaComboBox setzen
+        typeOfTeaComboBox.setItems(TeaTypeTimeHandler.getTeaTypes());
+        typeOfTeaComboBox.setOnAction(actionEvent -> minutes.setText(String.format("%02d", teaMap.get(typeOfTeaComboBox.getValue()))));
+
     }
 
     public void checkButtonsAndUpdateProgressBar() {
