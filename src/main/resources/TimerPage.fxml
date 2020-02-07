@@ -115,7 +115,7 @@
                         <Font name="System Bold" size="20.0" />
                     </font>
                 </Button>
-                <Button id="stop" fx:id="stop" alignment="CENTER" contentDisplay="CENTER" maxHeight="50.0" maxWidth="75.0" minHeight="50.0" minWidth="75.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="75.0" text="Stop">
+                <Button id="stop" fx:id="stop" alignment="CENTER" contentDisplay="CENTER" maxHeight="50.0" maxWidth="75.0" minHeight="50.0" minWidth="75.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="75.0" text="Stop" visible="false">
                     <font>
                         <Font name="System Bold" size="20.0" />
                     </font>

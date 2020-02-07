@@ -158,6 +158,8 @@ public class Controller {
             minutesMinus.setDisable(true);
             steamGif.setVisible(true);
             colonAnimationTimer.play();
+            start.setVisible(false);
+            stop.setVisible(true);
         });
 
         //Stops the running time.
@@ -174,7 +176,10 @@ public class Controller {
                 stop.setDisable(true);
                 colonAnimationTimer.stop();
                 colonLabel.setVisible(true);
+                start.setVisible(true);
+                stop.setVisible(false);
             }
+            stop.setVisible(false);
         });
 
         //Set typeOfTeaComboBox.
