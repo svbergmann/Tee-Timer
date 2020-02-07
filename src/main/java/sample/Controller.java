@@ -1,14 +1,18 @@
 package sample;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.util.Duration;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 public class Controller {
 
@@ -44,17 +48,21 @@ public class Controller {
     ComboBox<String> typeOfTeaComboBox;
     @FXML
     TextField addTeaTextField;
+    @FXML
+    Button buttonAddTea;
+    @FXML
+    Label wrongFormatError;
+    @FXML
+    Label colonLabel;
 
     private Zeiterfassung z;
-    private HashMap<String, Integer> teaMap;
+    private TeaTypeTimeHandler teaTypeTimeHandler;
+    private Timeline colonAnimationtimer;
 
     public void initialize() throws IOException {
 
         //Text Datei einlesen und speichern
-        TeaTypeTimeHandler teaTypeTimeHandler = new TeaTypeTimeHandler();
-        teaMap = teaTypeTimeHandler.getTeaTypeTimeMap();
-
-        TeaTypeTimeHandler.writeAndSave();
+        teaTypeTimeHandler = new TeaTypeTimeHandler();
 
         //GridPane setzen
         GridPane.setFillHeight(minutesPlus, true);
@@ -145,6 +153,7 @@ public class Controller {
             minutesPlus.setDisable(true);
             minutesMinus.setDisable(true);
             steamGif.setVisible(true);
+            colonAnimationtimer.play();
         });
 
         //Stoppt die aktuell durchlaufende Zeit
@@ -159,17 +168,43 @@ public class Controller {
                 secondsPlus.setDisable(false);
                 start.setDisable(false);
                 stop.setDisable(true);
+                colonAnimationtimer.stop();
+                colonLabel.setVisible(true);
             }
         });
 
         //typeOfTeaComboBox setzen
-        typeOfTeaComboBox.setItems(TeaTypeTimeHandler.getTeaTypes());
-        typeOfTeaComboBox.setOnAction(actionEvent -> minutes.setText(String.format("%02d", teaMap.get(typeOfTeaComboBox.getValue()))));
+        typeOfTeaComboBox.setItems(teaTypeTimeHandler.getTeaTypesAsObservableList());
+        typeOfTeaComboBox.setVisibleRowCount(30);
+        typeOfTeaComboBox.getSelectionModel().selectFirst();
+        typeOfTeaComboBox.setOnMouseClicked(actionEvent -> updateContents());
 
-        //Textfield Aktion setzen
-        addTeaTextField.setOnAction(actionEvent -> {
-            //TODO
+        //Aktion für das Hinzufuegen des neuen Tees setzen
+        buttonAddTea.setOnMouseClicked(mouseEvent -> {
+            try {
+                String[] temp = addTeaTextField.getText().split(" : ");
+                teaTypeTimeHandler.addTeaType(temp[0], Double.parseDouble(temp[1]));
+                update();
+                typeOfTeaComboBox.getSelectionModel().select(temp[0]);
+                updateContents();
+                wrongFormatError.setVisible(false);
+                addTeaTextField.clear();
+            } catch (Throwable e) {
+                wrongFormatError.setVisible(true);
+            }
         });
+
+        //Aktion für das Doppelpunkt Label setzen
+        colonAnimationtimer = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(colonLabel.visibleProperty(), true)), new KeyFrame(new Duration(500), new KeyValue(colonLabel.visibleProperty(), false)), new KeyFrame(new Duration(1000), new KeyValue(colonLabel.visibleProperty(), true)));
+        colonAnimationtimer.setOnFinished((event) -> colonAnimationtimer.play());
+
+    }
+
+    public void update() throws IOException {
+        ObservableList<String> list = teaTypeTimeHandler.getTeaTypesAsObservableList();
+        typeOfTeaComboBox.setItems(list);
+        typeOfTeaComboBox.getSelectionModel().selectFirst();
+        teaTypeTimeHandler.writeFile();
     }
 
     public void checkButtonsAndUpdateProgressBar() {
@@ -192,5 +227,11 @@ public class Controller {
             minutesMinus.setDisable(false);
             secondsMinus.setDisable(false);
         }
+    }
+
+    private void updateContents() {
+        double temp = teaTypeTimeHandler.getTeaTimeInSeconds(typeOfTeaComboBox.getValue());
+        minutes.setText(String.format("%02d", (int) temp / 60));
+        seconds.setText(String.format("%02d", (int) temp % 60));
     }
 }
