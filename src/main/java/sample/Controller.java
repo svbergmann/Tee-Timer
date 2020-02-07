@@ -14,6 +14,10 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 
+/**
+ * Class Controller for connecting the logic with the GUI.
+ * @author Prof Schmergmann
+ */
 public class Controller {
 
     @FXML
@@ -55,16 +59,16 @@ public class Controller {
     @FXML
     Label colonLabel;
 
-    private Zeiterfassung z;
+    private TeaTimeCount z;
     private TeaTypeTimeHandler teaTypeTimeHandler;
-    private Timeline colonAnimationtimer;
+    private Timeline colonAnimationTimer;
 
     public void initialize() throws IOException {
 
-        //Text Datei einlesen und speichern
+        //Creates a new TeaTypeTimeHandler object.
         teaTypeTimeHandler = new TeaTypeTimeHandler();
 
-        //GridPane setzen
+        //Sets the GridPane
         GridPane.setFillHeight(minutesPlus, true);
         GridPane.setFillHeight(minutesMinus, true);
 
@@ -83,29 +87,29 @@ public class Controller {
         GridPane.setFillWidth(seconds, true);
         GridPane.setFillWidth(minutes, true);
 
-        //Hintergrund setzen
+        //Sets the background.
         startBackground.setImage(new Image("teacup.jpg"));
 
-        //Gif setzen
+        //Sets the GIF.
         steamGif.setImage(new Image("watersteam.gif"));
 
-        //Fertigen Hintergrund setzen
+        //Sets finished background.
         finishedBackground.setImage(new Image("AlarmClock.png"));
 
-        //Startwerte fuer Minuten und Sekundenanzeige
+        //Initial values for minutes and seconds.
         int startminutes = 5;
         int startseconds = 0;
 
-        //Das Label zur Minutenanzeige
+        //Label for minutes.
         minutes.setText(String.format("%02d", startminutes));
 
-        //Das Label zur Sekundenanzeige
+        //Label for seconds.
         seconds.setText(String.format("%02d", startseconds));
 
-        //Deklarieren eines neuen Zeiterfassungsobjektes
-        z = new Zeiterfassung(seconds, minutes, progressBar, finishedBackground, steamGif);
+        //Declare a new "Zeiterfassung" object.
+        z = new TeaTimeCount(seconds, minutes, progressBar, finishedBackground, steamGif);
 
-        //Buttons zum hoch und runterzaehlen
+        //Buttons for plus and minus
         minutesPlus.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
             minutes.setText(String.format("%02d", Integer.parseInt(minutes.getText().trim()) + 1));
             checkButtonsAndUpdateProgressBar();
@@ -141,22 +145,22 @@ public class Controller {
             checkButtonsAndUpdateProgressBar();
         });
 
-        //Buttons start und stop
+        //Buttons start and stop.
         start.setOnAction(actionEvent ->
         {
             start.setDisable(true);
             stop.setDisable(false);
-            z = new Zeiterfassung(seconds, minutes, progressBar, finishedBackground, steamGif);
+            z = new TeaTimeCount(seconds, minutes, progressBar, finishedBackground, steamGif);
             z.start(Integer.parseInt(minutes.getText().trim()) * 60 + Integer.parseInt(seconds.getText().trim()));
             secondsPlus.setDisable(true);
             secondsMinus.setDisable(true);
             minutesPlus.setDisable(true);
             minutesMinus.setDisable(true);
             steamGif.setVisible(true);
-            colonAnimationtimer.play();
+            colonAnimationTimer.play();
         });
 
-        //Stoppt die aktuell durchlaufende Zeit
+        //Stops the running time.
         stop.setOnAction(actionEvent -> {
             if (z != null) {
                 z.stop();
@@ -168,18 +172,18 @@ public class Controller {
                 secondsPlus.setDisable(false);
                 start.setDisable(false);
                 stop.setDisable(true);
-                colonAnimationtimer.stop();
+                colonAnimationTimer.stop();
                 colonLabel.setVisible(true);
             }
         });
 
-        //typeOfTeaComboBox setzen
+        //Set typeOfTeaComboBox.
         typeOfTeaComboBox.setItems(teaTypeTimeHandler.getTeaTypesAsObservableList());
         typeOfTeaComboBox.setVisibleRowCount(30);
         typeOfTeaComboBox.getSelectionModel().selectFirst();
         typeOfTeaComboBox.setOnMouseClicked(actionEvent -> updateContents());
 
-        //Aktion für das Hinzufuegen des neuen Tees setzen
+        //Action for adding a new type of tea.
         buttonAddTea.setOnMouseClicked(mouseEvent -> {
             try {
                 String[] temp = addTeaTextField.getText().split(" : ");
@@ -194,12 +198,19 @@ public class Controller {
             }
         });
 
-        //Aktion für das Doppelpunkt Label setzen
-        colonAnimationtimer = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(colonLabel.visibleProperty(), true)), new KeyFrame(new Duration(500), new KeyValue(colonLabel.visibleProperty(), false)), new KeyFrame(new Duration(1000), new KeyValue(colonLabel.visibleProperty(), true)));
-        colonAnimationtimer.setOnFinished((event) -> colonAnimationtimer.play());
+        //ErrorLabel disappears when there is a new attempt.
+        addTeaTextField.setOnMouseClicked(mouseEvent -> wrongFormatError.setVisible(false));
+
+        //Action for colon.
+        colonAnimationTimer = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(colonLabel.visibleProperty(), true)), new KeyFrame(new Duration(500), new KeyValue(colonLabel.visibleProperty(), false)), new KeyFrame(new Duration(1000), new KeyValue(colonLabel.visibleProperty(), true)));
+        colonAnimationTimer.setOnFinished((event) -> colonAnimationTimer.play());
 
     }
 
+    /**
+     * Updates the Hashmap and all other corresponding files.
+     * @throws IOException if something is wrong with writing the file.
+     */
     public void update() throws IOException {
         ObservableList<String> list = teaTypeTimeHandler.getTeaTypesAsObservableList();
         typeOfTeaComboBox.setItems(list);
@@ -207,6 +218,9 @@ public class Controller {
         teaTypeTimeHandler.writeFile();
     }
 
+    /**
+     * Checks the buttons for legal numbers and updates the progressBar.
+     */
     public void checkButtonsAndUpdateProgressBar() {
         checkButtons();
         z.setStartMin(minutes);
@@ -214,6 +228,9 @@ public class Controller {
         z.setProgressBarMax(progressBar);
     }
 
+    /**
+     * Checks the buttons.
+     */
     public void checkButtons() {
         int secondsInt = Integer.parseInt(seconds.getText().trim());
         int minutesInt = Integer.parseInt(minutes.getText().trim());
@@ -229,6 +246,9 @@ public class Controller {
         }
     }
 
+    /**
+     * Updates the minutes and seconds label if there is a new type of tea.
+     */
     private void updateContents() {
         double temp = teaTypeTimeHandler.getTeaTimeInSeconds(typeOfTeaComboBox.getValue());
         minutes.setText(String.format("%02d", (int) temp / 60));
