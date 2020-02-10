@@ -6,121 +6,130 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="stage" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="975.0" styleClass="Tee-Timer" xmlns="http://javafx.com/javafx/10.0.2-internal" fx:controller="sample.Controller">
-    <children>
-        <ImageView fx:id="startBackground" fitHeight="650.0" fitWidth="975.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="@/teacup.jpg" />
-            </image>
-        </ImageView>
-        <GridPane fx:id="buttons" layoutX="14.0" layoutY="14.0" prefHeight="333.0" prefWidth="325.0">
-            <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints maxHeight="186.0" minHeight="10.0" prefHeight="132.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="256.0" minHeight="10.0" prefHeight="99.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="326.0" minHeight="10.0" prefHeight="104.0" vgrow="SOMETIMES" />
-            </rowConstraints>
-            <children>
-                <Button id="minutesPlus" fx:id="minutesPlus" disable="true" mnemonicParsing="false" text="+" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                    <font>
-                        <Font size="40.0" />
-                    </font>
-                </Button>
-                <Button id="minutesMinus" fx:id="minutesMinus" disable="true" mnemonicParsing="false" text="-" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                    <font>
-                        <Font size="40.0" />
-                    </font>
-                </Button>
-                <Button id="secondsPlus" fx:id="secondsPlus" disable="true" mnemonicParsing="false" text="+" visible="false" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                    <font>
-                        <Font size="40.0" />
-                    </font>
-                </Button>
-                <Button id="secondsMinus" fx:id="secondsMinus" disable="true" mnemonicParsing="false" text="-" visible="false" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                    <font>
-                        <Font size="40.0" />
-                    </font>
-                </Button>
-            </children>
-        </GridPane>
-        <ProgressBar id="progressBar" fx:id="progressBar" layoutY="615.0" prefHeight="30.0" prefWidth="975.0" progress="0.0" />
-        <ImageView fx:id="steamGif" fitHeight="205.0" fitWidth="274.0" layoutX="206.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" visible="false">
-            <image>
-                <Image url="@/watersteam.gif" />
-            </image>
-        </ImageView>
-        <ImageView fx:id="finishedBackground" fitHeight="640.0" fitWidth="761.0" layoutX="262.0" layoutY="131.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <image>
-                <Image url="@/AlarmClock.png" />
-            </image>
-        </ImageView>
-        <Button fx:id="stopBlinking" mnemonicParsing="false" text="Button" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <VBox layoutX="611.0" layoutY="14.0" prefHeight="60.0" prefWidth="350.0">
-         <children>
-            <HBox prefHeight="30.0" prefWidth="250.0">
-               <children>
-                  <Label alignment="CENTER" maxHeight="30.0" maxWidth="100.0" minHeight="30.0" minWidth="100.0" prefHeight="30.0" prefWidth="100.0" text="Type of Tea:" />
-                  <ComboBox fx:id="typeOfTeaComboBox" maxHeight="30.0" maxWidth="250.0" minHeight="30.0" minWidth="250.0" prefHeight="30.0" prefWidth="250.0" />
-               </children>
-            </HBox>
-            <HBox prefHeight="30.0" prefWidth="250.0">
-               <children>
-                  <Label alignment="CENTER" maxHeight="30.0" maxWidth="100.0" minHeight="30.0" minWidth="100.0" prefHeight="30.0" prefWidth="100.0" text="Add Tea:" />
-                  <TextField fx:id="addTeaTextField" maxHeight="30.0" maxWidth="203.0" minHeight="30.0" minWidth="203.0" prefHeight="30.0" prefWidth="203.0" promptText="&lt;Type of Tea&gt;  : &lt;Minutes&gt;" />
-                  <Button fx:id="buttonAddTea" maxHeight="30.0" maxWidth="47.0" minHeight="30.0" minWidth="47.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="47.0" text="Add" />
-               </children>
-            </HBox>
-            <HBox>
-               <VBox.margin>
-                  <Insets left="100.0" top="5.0" />
-               </VBox.margin>
-               <children>
-                  <Label fx:id="wrongFormatError" alignment="CENTER" contentDisplay="CENTER" maxHeight="30.0" maxWidth="235.0" minHeight="30.0" minWidth="135.0" prefHeight="30.0" prefWidth="135.0" text="Wrong Format!" textFill="RED" visible="false">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-      <PieChart fx:id="pieChart" prefHeight="159.0" prefWidth="178.0" />
-      <HBox layoutX="657.0" layoutY="297.0" prefHeight="79.0" prefWidth="164.0">
-         <children>
-                <Label id="minutes" fx:id="minutes" maxHeight="100.0" maxWidth="100.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" text="05" textFill="WHITE">
-                    <font>
-                        <Font name="Calibri" size="96.0" />
-                    </font>
-                </Label>
-            <Label fx:id="colonLabel" maxHeight="100.0" maxWidth="30.0" minHeight="100.0" minWidth="30.0" prefHeight="100.0" prefWidth="30.0" text=":" textFill="WHITE">
-               <font>
-                  <Font name="Calibri" size="96.0" />
-               </font>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="stage" maxHeight="1.7976931348623157E308"
+            maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="975.0" styleClass="Tee-Timer"
+            xmlns="http://javafx.com/javafx/10.0.2-internal" fx:controller="sample.Controller">
+    <ImageView fx:id="startBackground" fitHeight="650.0" fitWidth="975.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@/teacup.jpg"/>
+    </ImageView>
+    <GridPane fx:id="buttons" layoutX="14.0" layoutY="14.0" prefHeight="333.0" prefWidth="325.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="186.0" minHeight="10.0" prefHeight="132.0" vgrow="SOMETIMES"/>
+            <RowConstraints maxHeight="256.0" minHeight="10.0" prefHeight="99.0" vgrow="SOMETIMES"/>
+            <RowConstraints maxHeight="326.0" minHeight="10.0" prefHeight="104.0" vgrow="SOMETIMES"/>
+        </rowConstraints>
+        <Button id="minutesPlus" fx:id="minutesPlus" disable="true" mnemonicParsing="false" text="+"
+                visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
+                GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+            <font>
+                <Font size="40.0"/>
+            </font>
+        </Button>
+        <Button id="minutesMinus" fx:id="minutesMinus" disable="true" mnemonicParsing="false" text="-"
+                visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
+                GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+            <font>
+                <Font size="40.0"/>
+            </font>
+        </Button>
+        <Button id="secondsPlus" fx:id="secondsPlus" disable="true" mnemonicParsing="false" text="+"
+                visible="false" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
+                GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+            <font>
+                <Font size="40.0"/>
+            </font>
+        </Button>
+        <Button id="secondsMinus" fx:id="secondsMinus" disable="true" mnemonicParsing="false" text="-"
+                visible="false" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
+                GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+            <font>
+                <Font size="40.0"/>
+            </font>
+        </Button>
+    </GridPane>
+    <ProgressBar id="progressBar" fx:id="progressBar" layoutY="615.0" prefHeight="30.0" prefWidth="975.0"
+                 progress="0.0"/>
+    <ImageView fx:id="steamGif" fitHeight="205.0" fitWidth="274.0" layoutX="206.0" layoutY="29.0"
+               pickOnBounds="true" preserveRatio="true" visible="false">
+        <Image url="@/watersteam.gif"/>
+    </ImageView>
+    <ImageView fx:id="finishedBackground" fitHeight="640.0" fitWidth="761.0" layoutX="262.0" layoutY="131.0"
+               nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" visible="false"
+               AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+               AnchorPane.topAnchor="0.0">
+        <Image url="@/AlarmClock.png"/>
+    </ImageView>
+    <Button fx:id="stopBlinking" mnemonicParsing="false" text="Button" visible="false" AnchorPane.bottomAnchor="0.0"
+            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+    <VBox layoutX="611.0" layoutY="14.0" prefHeight="60.0" prefWidth="350.0">
+        <HBox prefHeight="30.0" prefWidth="250.0">
+            <Label alignment="CENTER" maxHeight="30.0" maxWidth="100.0" minHeight="30.0" minWidth="100.0"
+                   prefHeight="30.0" prefWidth="100.0" text="Type of Tea:"/>
+            <ComboBox fx:id="typeOfTeaComboBox" maxHeight="30.0" maxWidth="250.0" minHeight="30.0"
+                      minWidth="250.0" prefHeight="30.0" prefWidth="250.0"/>
+        </HBox>
+        <HBox prefHeight="30.0" prefWidth="250.0">
+            <Label alignment="CENTER" maxHeight="30.0" maxWidth="100.0" minHeight="30.0" minWidth="100.0"
+                   prefHeight="30.0" prefWidth="100.0" text="Add Tea:"/>
+            <TextField fx:id="addTeaTextField" maxHeight="30.0" maxWidth="203.0" minHeight="30.0"
+                       minWidth="203.0" prefHeight="30.0" prefWidth="203.0"
+                       promptText="&lt;Type of Tea&gt;  : &lt;Minutes&gt;"/>
+            <Button fx:id="buttonAddTea" maxHeight="30.0" maxWidth="47.0" minHeight="30.0" minWidth="47.0"
+                    mnemonicParsing="false" prefHeight="30.0" prefWidth="47.0" text="Add"/>
+        </HBox>
+        <HBox>
+            <VBox.margin>
+                <Insets left="100.0" top="5.0"/>
+            </VBox.margin>
+            <Label fx:id="wrongFormatError" alignment="CENTER" contentDisplay="CENTER" maxHeight="30.0"
+                   maxWidth="235.0" minHeight="30.0" minWidth="135.0" prefHeight="30.0" prefWidth="135.0"
+                   text="Wrong Format!" textFill="RED" visible="false">
+                <font>
+                    <Font size="20.0"/>
+                </font>
             </Label>
-                <Label id="seconds" fx:id="seconds" maxHeight="100.0" maxWidth="100.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" text="00" textFill="WHITE">
-                    <font>
-                        <Font name="Calibri" size="96.0" />
-                    </font>
-                </Label>
-         </children>
-      </HBox>
-      <VBox layoutX="14.0" layoutY="497.0">
-         <children>
-                <Button id="start" fx:id="start" alignment="CENTER" contentDisplay="CENTER" maxHeight="50.0" maxWidth="75.0" minHeight="50.0" minWidth="75.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="75.0" text="Start">
-                    <font>
-                        <Font name="System Bold" size="20.0" />
-                    </font>
-                </Button>
-             <Button id="stop" fx:id="stop" alignment="CENTER" contentDisplay="CENTER" maxHeight="50.0" maxWidth="75.0" minHeight="50.0" minWidth="75.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="75.0" text="Stop" visible="false">
-                    <font>
-                        <Font name="System Bold" size="20.0" />
-                    </font>
-                </Button>
-         </children>
-      </VBox>
-    </children>
+        </HBox>
+    </VBox>
+    <PieChart fx:id="pieChart" prefHeight="159.0" prefWidth="178.0"/>
+    <HBox layoutX="657.0" layoutY="297.0" prefHeight="79.0" prefWidth="164.0">
+        <Label id="minutes" fx:id="minutes" maxHeight="100.0" maxWidth="100.0" minHeight="100.0"
+               minWidth="100.0" prefHeight="100.0" prefWidth="100.0" text="05" textFill="WHITE">
+            <font>
+                <Font name="Calibri" size="96.0"/>
+            </font>
+        </Label>
+        <Label fx:id="colonLabel" maxHeight="100.0" maxWidth="30.0" minHeight="100.0" minWidth="30.0"
+               prefHeight="100.0" prefWidth="30.0" text=":" textFill="WHITE">
+            <font>
+                <Font name="Calibri" size="96.0"/>
+            </font>
+        </Label>
+        <Label id="seconds" fx:id="seconds" maxHeight="100.0" maxWidth="100.0" minHeight="100.0"
+               minWidth="100.0" prefHeight="100.0" prefWidth="100.0" text="00" textFill="WHITE">
+            <font>
+                <Font name="Calibri" size="96.0"/>
+            </font>
+        </Label>
+    </HBox>
+    <VBox layoutX="14.0" layoutY="497.0">
+        <Button id="start" fx:id="start" alignment="CENTER" contentDisplay="CENTER" maxHeight="50.0"
+                maxWidth="75.0" minHeight="50.0" minWidth="75.0" mnemonicParsing="false" prefHeight="50.0"
+                prefWidth="75.0" text="Start">
+            <font>
+                <Font name="System Bold" size="20.0"/>
+            </font>
+        </Button>
+        <Button id="stop" fx:id="stop" alignment="CENTER" contentDisplay="CENTER" maxHeight="50.0"
+                maxWidth="75.0" minHeight="50.0" minWidth="75.0" mnemonicParsing="false" prefHeight="50.0"
+                prefWidth="75.0" text="Stop" visible="false">
+            <font>
+                <Font name="System Bold" size="20.0"/>
+            </font>
+        </Button>
+    </VBox>
 </AnchorPane>
