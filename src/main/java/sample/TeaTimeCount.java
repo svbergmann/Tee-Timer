@@ -15,10 +15,13 @@ import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Zeiterfassung {
+/**
+ * Class TeaTimeCount for the animation of a time running down.
+ * @author Prof Schmergmann
+ */
+public class TeaTimeCount {
 
     private static AtomicInteger progressBarMax = new AtomicInteger(300);
-    private Timer timer = new Timer();
     private Duration duration;
     private boolean isRunning;
     private int startMin;
@@ -26,12 +29,21 @@ public class Zeiterfassung {
     private AnimationTimer animationTimer;
     private AtomicBoolean beeped = new AtomicBoolean(false);
 
-    public Zeiterfassung(Label secondslabel, Label minuteslabel, ProgressBar progressBar, ImageView imageView, ImageView imageViewSteam) {
-        startSec = Integer.parseInt(secondslabel.getText().trim());
-        startMin = Integer.parseInt(minuteslabel.getText().trim());
+    /**
+     * Constructor for an Object, that counts down to zero, stops and does an animation.
+     * @param secondsLabel the label for the seconds.
+     * @param minutesLabel the label for the minutes.
+     * @param progressBar the progressBar.
+     * @param imageView the imageView for the finished timer.
+     * @param imageViewSteam the imageView for the running timer.
+     */
+    public TeaTimeCount(Label secondsLabel, Label minutesLabel, ProgressBar progressBar, ImageView imageView, ImageView imageViewSteam) {
+        startSec = Integer.parseInt(secondsLabel.getText().trim());
+        startMin = Integer.parseInt(minutesLabel.getText().trim());
         setProgressBarMax(progressBar);
         this.start(this.startMin * 60 + this.startSec);
         isRunning = false;
+        Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -40,8 +52,8 @@ public class Zeiterfassung {
                     int max = progressBarMax.get();
                     Platform.runLater(() -> {
                         progressBar.setProgress(1. - 1. * duration.getSeconds() / max);
-                        secondslabel.setText(String.format("%02d", getActualseconds()));
-                        minuteslabel.setText(String.format("%02d", getActualminutes()));
+                        secondsLabel.setText(String.format("%02d", getActualSeconds()));
+                        minutesLabel.setText(String.format("%02d", getActualMinutes()));
                     });
                 } else if (duration.isZero()) {
                     animationTimer.start();
@@ -80,36 +92,66 @@ public class Zeiterfassung {
         };
     }
 
+    /**
+     * Stops the animationTimer which starts if the count is zero.
+     */
     public void stopAnimationTimer() {
         animationTimer.stop();
     }
 
+    /**
+     * Sets the initial value for the minutes read from the minutes label.
+     * @param minutes the label.
+     */
     public void setStartMin(Label minutes) {
         this.startMin = Integer.parseInt(minutes.getText().trim());
     }
 
+    /**
+     * Sets the initial value for the seconds read from the seconds label.
+     * @param seconds the label.
+     */
     public void setStartSec(Label seconds) {
         this.startSec = Integer.parseInt(seconds.getText().trim());
     }
 
-    public long getActualminutes() {
+    /**
+     * Returns the actual minutes read from the duration object.
+     * @return the minutes in a long.
+     */
+    public long getActualMinutes() {
         return duration.toMinutes();
     }
 
-    public long getActualseconds() {
+    /**
+     * Returns the actual seconds read from the duration object.
+     * @return the seconds in a long.
+     */
+    public long getActualSeconds() {
         return duration.getSeconds() % 60;
     }
 
+    /**
+     * Starts the actual timer.
+     * @param time the time at witch the timer should start.
+     */
     public void start(long time) {
         duration = Duration.ofSeconds(time);
         isRunning = true;
         beeped.set(false);
     }
 
+    /**
+     * Stops the timer.
+     */
     public void stop() {
         isRunning = false;
     }
 
+    /**
+     * Sets the maximum of the progressBar.
+     * @param progressBar the progressBar.
+     */
     public void setProgressBarMax(ProgressBar progressBar) {
         progressBarMax.set(startMin * 60 + startSec);
         progressBar.setProgress(0);
