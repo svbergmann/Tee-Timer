@@ -1,15 +1,11 @@
-package sample.classes;
+package classes;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import sample.Main;
 
-import java.net.URISyntaxException;
 import java.time.Duration;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -72,18 +68,7 @@ public class TeaTimeCount {
             public void handle(long l) {
                 if (l - last > 1000000000) {
                     last = l;
-                    if (!beeped.get()) {
-                        beeped.set(true);
-                        String file = "";
-                        try {
-                            file = Main.BEEP_PATH.toURI().toString();
-                        } catch (URISyntaxException e) {
-                            e.printStackTrace();
-                        }
-                        Media test = new Media(file);
-                        MediaPlayer x = new MediaPlayer(test);
-                        x.play();
-                    }
+                    java.awt.Toolkit.getDefaultToolkit().beep();
                     imageViewSteam.setVisible(false);
                     if (imageView.isVisible()) {
                         imageView.setVisible(false);

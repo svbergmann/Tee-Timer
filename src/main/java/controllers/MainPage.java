@@ -1,5 +1,7 @@
-package sample.controllers;
+package controllers;
 
+import classes.TeaTimeCount;
+import classes.TeaTypeTimeHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -13,10 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
-import sample.classes.TeaTimeCount;
-import sample.classes.TeaTypeTimeHandler;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -213,10 +212,8 @@ public class MainPage implements Controller {
 
     /**
      * Updates the Hashmap and all other corresponding files.
-     *
-     * @throws IOException if something is wrong with writing the file.
      */
-    public void update() throws IOException {
+    public void update() {
         ObservableList<String> list = TeaTypeTimeHandler.getInstance().getTeaTypesAsObservableList();
         typeOfTeaComboBox.setItems(list);
         typeOfTeaComboBox.getSelectionModel().selectFirst();

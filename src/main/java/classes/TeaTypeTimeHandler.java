@@ -1,4 +1,4 @@
-package sample.classes;
+package classes;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.*;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -18,7 +19,7 @@ public class TeaTypeTimeHandler implements Serializable {
 
     private static TeaTypeTimeHandler self = new TeaTypeTimeHandler();
 
-    private static final Gson gson = new Gson();
+    private final Gson gson = new Gson();
     private File teasAndTimes = new File(System.getProperty("user.home") + "\\TeasAndTimes.gson");
     private HashMap<String, Double> teaTypesAndTimesHashMap;
 
@@ -35,26 +36,21 @@ public class TeaTypeTimeHandler implements Serializable {
     private TeaTypeTimeHandler() {
         if (teasAndTimes.exists()) {
             teaTypesAndTimesHashMap = readFile(teasAndTimes);
-            System.out.println(teasAndTimes.toString());
         } else {
-            teaTypesAndTimesHashMap = readFile(new File("src/main/resources/TeaTypes.json"));
+            URL resource = getClass().getResource("/files/TeaTypes.json");
+            teaTypesAndTimesHashMap = readFile(new File(resource.getPath()));
             writeFile();
         }
     }
 
+    /**
+     * Method for a wrong formatted file.
+     */
     public void wasWrongFormat() {
         teasAndTimes.delete();
-        teaTypesAndTimesHashMap = readFile(new File("src/main/resources/files/TeaTypes.json"));
+        URL resource = getClass().getResource("/files/TeaTypes.json");
+        teaTypesAndTimesHashMap = readFile(new File(resource.getPath()));
         writeFile();
-    }
-
-    /**
-     * getter for wrote state
-     *
-     * @return true if the file was successfully saved
-     */
-    public boolean isSuccessfulWrote() {
-        return successfulWrote;
     }
 
     public boolean isSuccessfulRead() {
@@ -91,6 +87,7 @@ public class TeaTypeTimeHandler implements Serializable {
             }.getType());
             successfulRead = true;
         } catch (Throwable e) {
+            e.printStackTrace();
             successfulRead = false;
         }
         return temp;

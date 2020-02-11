@@ -20,7 +20,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Tee-Timer" target="11" />
+      <module name="Tee-Timer" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

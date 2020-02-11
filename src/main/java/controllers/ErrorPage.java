@@ -1,12 +1,12 @@
-package sample.controllers;
+package controllers;
 
+import classes.TeaTypeTimeHandler;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import sample.Main;
-import sample.classes.TeaTypeTimeHandler;
+import main.Main;
 
 import java.net.URL;
 import java.util.Random;

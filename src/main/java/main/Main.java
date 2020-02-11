@@ -1,23 +1,19 @@
-package sample;
+package main;
 
+import classes.TeaTypeTimeHandler;
+import controllers.Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import sample.classes.TeaTypeTimeHandler;
-import sample.controllers.Controller;
 
 import java.io.IOException;
-import java.net.URL;
 
 public class Main extends Application {
 
     private static Main self;
-
-    public static URL BEEP_PATH = Thread.currentThread().getContextClassLoader().getResource("audio/out.wav");
-
     private Stage primaryStage;
     private Controller controller;
     private String nameOfScene;
@@ -31,7 +27,7 @@ public class Main extends Application {
      */
     public static Main getInstance() {
         if (self == null) {
-            System.out.println("ERROR: Main instance does not exist.");
+            System.out.println("ERROR: main.Main instance does not exist.");
         }
         return self;
     }

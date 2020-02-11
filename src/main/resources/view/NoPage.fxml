@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <AnchorPane prefHeight="650.0" prefWidth="975.0" xmlns="http://javafx.com/javafx/10.0.2-internal"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.NoPage">
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.NoPage">
     <ImageView fitHeight="650.0" fitWidth="975.0" pickOnBounds="true" preserveRatio="true">
         <Image url="@../pictures/teacup.jpg"/>
     </ImageView>

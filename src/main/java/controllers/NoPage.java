@@ -1,8 +1,8 @@
-package sample.controllers;
+package controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import sample.Main;
+import main.Main;
 
 import java.net.URL;
 import java.util.ResourceBundle;
