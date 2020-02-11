@@ -1,4 +1,4 @@
-package sample;
+package sample.classes;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -12,20 +12,27 @@ import java.util.HashMap;
 /**
  * Class TeaTimeTypeHandler for saving the Teas and Times in a HashMap and writing the HashMap in a JSON file.
  *
- * @author Prof Schmergmann
+ * @author ProfSchmergmann
  */
 public class TeaTypeTimeHandler implements Serializable {
+
+    private static TeaTypeTimeHandler self = new TeaTypeTimeHandler();
 
     private static final Gson gson = new Gson();
     private File teasAndTimes = new File(System.getProperty("user.home") + "\\TeasAndTimes.gson");
     private HashMap<String, Double> teaTypesAndTimesHashMap;
 
+    private boolean successfulWrote;
+    private boolean successfulRead;
+
+    public static TeaTypeTimeHandler getInstance() {
+        return self;
+    }
+
     /**
      * Constructor for reading an existing file or creating a new file if there is none.
-     *
-     * @throws IOException if something is wrong with reading or writing the file.
      */
-    public TeaTypeTimeHandler() throws IOException {
+    private TeaTypeTimeHandler() {
         if (teasAndTimes.exists()) {
             teaTypesAndTimesHashMap = readFile(teasAndTimes);
             System.out.println(teasAndTimes.toString());
@@ -35,16 +42,39 @@ public class TeaTypeTimeHandler implements Serializable {
         }
     }
 
+    public void wasWrongFormat() {
+        teasAndTimes.delete();
+        teaTypesAndTimesHashMap = readFile(new File("src/main/resources/files/TeaTypes.json"));
+        writeFile();
+    }
+
+    /**
+     * getter for wrote state
+     *
+     * @return true if the file was successfully saved
+     */
+    public boolean isSuccessfulWrote() {
+        return successfulWrote;
+    }
+
+    public boolean isSuccessfulRead() {
+        return successfulRead;
+    }
+
     /**
      * Writes the new HashMap converted as JSON format in the file.
-     *
-     * @throws IOException if something is wrong with writing the file.
      */
-    public void writeFile() throws IOException {
-        String json = gson.toJson(teaTypesAndTimesHashMap);
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(teasAndTimes));
-        bufferedWriter.write(json);
-        bufferedWriter.close();
+    public void writeFile() {
+        try {
+            String json = gson.toJson(teaTypesAndTimesHashMap);
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(teasAndTimes));
+            bufferedWriter.write(json);
+            bufferedWriter.close();
+
+            successfulWrote = true;
+        } catch (IOException e) {
+            successfulWrote = false;
+        }
     }
 
     /**
@@ -55,12 +85,13 @@ public class TeaTypeTimeHandler implements Serializable {
      * @throws ClassCastException if the file isn't formatted in JSON.
      */
     private HashMap<String, Double> readFile(File file) throws ClassCastException {
-        HashMap<String, Double> temp;
+        HashMap<String, Double> temp = null;
         try {
             temp = gson.fromJson(new FileReader(file), new TypeToken<HashMap<String, Double>>() {
             }.getType());
+            successfulRead = true;
         } catch (Throwable e) {
-            throw new ClassCastException("Wrong formatted file!");
+            successfulRead = false;
         }
         return temp;
     }
@@ -94,4 +125,5 @@ public class TeaTypeTimeHandler implements Serializable {
     public double getTeaTimeInSeconds(String tea) {
         return teaTypesAndTimesHashMap.get(tea) * 60;
     }
+
 }

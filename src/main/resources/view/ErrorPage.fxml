@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="650.0" prefWidth="975.0" xmlns="http://javafx.com/javafx/10.0.2-internal"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.ErrorPage">
+    <ImageView fitHeight="650.0" fitWidth="986.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../pictures/teacup.jpg"/>
+    </ImageView>
+    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="430.0" maxHeight="-Infinity" maxWidth="-Infinity"
+           minHeight="-Infinity" minWidth="-Infinity" prefHeight="114.0" prefWidth="531.0"
+           text="Error while loading the file." textAlignment="CENTER" textFill="RED" underline="true">
+        <font>
+            <Font size="38.0"/>
+        </font>
+    </Label>
+    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="548.0" layoutY="133.0" maxHeight="-Infinity"
+           maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="123.0" prefWidth="413.0"
+           text="Create a new file?" textAlignment="CENTER" textFill="RED">
+        <font>
+            <Font size="37.0"/>
+        </font>
+    </Label>
+    <Button fx:id="buttonCreateANewFile" alignment="CENTER" contentDisplay="CENTER" layoutX="600.0" layoutY="300.0"
+            maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            mnemonicParsing="false" prefHeight="339.0" prefWidth="353.0" text="Yes" textAlignment="CENTER">
+        <font>
+            <Font size="44.0"/>
+        </font>
+    </Button>
+    <Button fx:id="button1" contentDisplay="CENTER" layoutX="14.0" layoutY="616.0" maxHeight="-Infinity"
+            maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="20.0"
+            prefWidth="22.0" text="Exit" textAlignment="CENTER">
+        <font>
+            <Font size="7.0"/>
+        </font>
+    </Button>
+    <Button fx:id="button2" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" maxHeight="-Infinity"
+            maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="20.0"
+            prefWidth="22.0" text="Exit" textAlignment="CENTER" visible="false">
+        <font>
+            <Font size="7.0"/>
+        </font>
+    </Button>
+</AnchorPane>

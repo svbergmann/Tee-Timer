@@ -1,4 +1,4 @@
-package sample;
+package sample.classes;
 
 import marytts.LocalMaryInterface;
 import marytts.exceptions.MaryConfigurationException;
@@ -16,7 +16,7 @@ public class Txt2Wav {
     public static void main(String[] args) throws MaryConfigurationException {
         // get output option
         String outputFileName = "src/main/resources/out.wav";
-        String inputFileName = "in.txt";
+        String inputFileName = "audio/in.txt";
         // get input
         String inputText = null;
         String file = Objects.requireNonNull(ClassLoader.getSystemClassLoader().getResource(inputFileName)).getPath();
@@ -28,7 +28,7 @@ public class Txt2Wav {
         }
 
         // init mary
-        LocalMaryInterface mary = null;
+        LocalMaryInterface mary;
         try {
             mary = new LocalMaryInterface();
         } catch (

@@ -1,4 +1,4 @@
-package sample;
+package sample.classes;
 
 import marytts.LocalMaryInterface;
 import marytts.exceptions.MaryConfigurationException;

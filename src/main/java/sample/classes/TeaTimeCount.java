@@ -1,4 +1,4 @@
-package sample;
+package sample.classes;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
@@ -7,6 +7,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import sample.Main;
 
 import java.net.URISyntaxException;
 import java.time.Duration;
@@ -17,7 +18,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Class TeaTimeCount for the animation of a time running down.
- * @author Prof Schmergmann
+ *
+ * @author ProfSchmergmann
  */
 public class TeaTimeCount {
 
@@ -31,10 +33,11 @@ public class TeaTimeCount {
 
     /**
      * Constructor for an Object, that counts down to zero, stops and does an animation.
-     * @param secondsLabel the label for the seconds.
-     * @param minutesLabel the label for the minutes.
-     * @param progressBar the progressBar.
-     * @param imageView the imageView for the finished timer.
+     *
+     * @param secondsLabel   the label for the seconds.
+     * @param minutesLabel   the label for the minutes.
+     * @param progressBar    the progressBar.
+     * @param imageView      the imageView for the finished timer.
      * @param imageViewSteam the imageView for the running timer.
      */
     public TeaTimeCount(Label secondsLabel, Label minutesLabel, ProgressBar progressBar, ImageView imageView, ImageView imageViewSteam) {
@@ -101,6 +104,7 @@ public class TeaTimeCount {
 
     /**
      * Sets the initial value for the minutes read from the minutes label.
+     *
      * @param minutes the label.
      */
     public void setStartMin(Label minutes) {
@@ -109,6 +113,7 @@ public class TeaTimeCount {
 
     /**
      * Sets the initial value for the seconds read from the seconds label.
+     *
      * @param seconds the label.
      */
     public void setStartSec(Label seconds) {
@@ -117,6 +122,7 @@ public class TeaTimeCount {
 
     /**
      * Returns the actual minutes read from the duration object.
+     *
      * @return the minutes in a long.
      */
     public long getActualMinutes() {
@@ -125,6 +131,7 @@ public class TeaTimeCount {
 
     /**
      * Returns the actual seconds read from the duration object.
+     *
      * @return the seconds in a long.
      */
     public long getActualSeconds() {
@@ -133,6 +140,7 @@ public class TeaTimeCount {
 
     /**
      * Starts the actual timer.
+     *
      * @param time the time at witch the timer should start.
      */
     public void start(long time) {
@@ -150,6 +158,7 @@ public class TeaTimeCount {
 
     /**
      * Sets the maximum of the progressBar.
+     *
      * @param progressBar the progressBar.
      */
     public void setProgressBarMax(ProgressBar progressBar) {
