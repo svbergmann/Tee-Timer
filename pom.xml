@@ -15,8 +15,6 @@
         <project.build.targetEncoding>UTF-8</project.build.targetEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.encoding>${project.build.sourceEncoding}</maven.compiler.encoding>
-        <maven.resources.encoding>${project.build.sourceEncoding}</maven.resources.encoding>
         <version.plugin.maven.enforcer>3.0.0-M2</version.plugin.maven.enforcer>
         <version.plugin.maven.jar>3.1.0</version.plugin.maven.jar>
         <version.plugin.maven.compiler>3.8.0</version.plugin.maven.compiler>
@@ -75,9 +73,6 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
-                    <source>${project.java.version}</source>
-                    <target>${project.java.version}</target>
-                    <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
             <plugin>

@@ -66,7 +66,6 @@ public class TeaTypeTimeHandler implements Serializable {
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(teasAndTimes));
             bufferedWriter.write(json);
             bufferedWriter.close();
-
             successfulWrote = true;
         } catch (IOException e) {
             successfulWrote = false;
