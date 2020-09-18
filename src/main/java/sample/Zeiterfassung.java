@@ -1,5 +1,9 @@
 package sample;
 
+import com.github.plushaze.traynotification.animations.Animations;
+import com.github.plushaze.traynotification.notification.Notification;
+import com.github.plushaze.traynotification.notification.Notifications;
+import com.github.plushaze.traynotification.notification.TrayNotification;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
@@ -60,6 +64,7 @@ public class Zeiterfassung {
                 if (l - last > 200_000_000) {
                     last = l;
                     if (!beeped.get()) {
+                        //FEUER
                         beeped.set(true);
                         String file = "";
                         try {
@@ -74,6 +79,17 @@ public class Zeiterfassung {
                             mediaPlayer = new MediaPlayer(media);
                         }
                         mediaPlayer.play();
+
+                        String title = "Brudi, dein Tee ist ready";
+                        String message = "Klick mich doch jetzt weg, du Kek.";
+                        Notification notification = Notifications.INFORMATION;
+
+                        TrayNotification tray = new TrayNotification();
+                        tray.setTitle(title);
+                        tray.setMessage(message);
+                        tray.setNotification(notification);
+                        tray.setAnimation(Animations.POPUP);
+                        tray.showAndWait();
                     }
                     imageViewSteam.setVisible(false);
                     if (imageView.isVisible()) {

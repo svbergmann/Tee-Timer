@@ -19,7 +19,10 @@ public class Txt2Wav {
         String inputFileName = "in.txt";
         // get input
         String inputText = null;
-        String file = Objects.requireNonNull(ClassLoader.getSystemClassLoader().getResource(inputFileName)).getPath();
+        String file = Objects.requireNonNull(ClassLoader.getSystemClassLoader().getResource(inputFileName))
+                .getPath();
+        //Remove leading / for windows, gets put there wrongly
+        file = file.substring(1);
         try {
             inputText = new String(Files.readAllBytes(Paths.get(file)));
         } catch (IOException e) {
